@@ -13,10 +13,14 @@ int main()
 	Node n1, n2(33);
 	n1.setValue(12);
 	n1.setNextNode(&n2);
+	n2.setPrevNode(&n1);
 
 	cout << "Node 1: " << n1.getValue() << endl;
 	cout << "Node 2: " << n2.getValue() << endl;
 	cout << "Printing Node 2 by using next pointer of Node 2: " << n1.getNextNode()->getValue() << endl;
+	cout << "Printing Node 1 by using previous pointer of Node 2: " << n2.getPrevNode()->getValue() << endl;
+
+	return 0;
 }
 
 // Run program: Ctrl + F5 or Debug > Start Without Debugging menu
