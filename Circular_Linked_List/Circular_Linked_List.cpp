@@ -58,12 +58,26 @@ int main()
 	cout << "Displaying List after deleting a Node from List:\n";
 	c1.displayList();	// Displaying Nodes of List
 	cout << "Printing size of the List: " << endl << c1.getSize() << endl;
+	// Sorting Nodes
+	cout << "Displaying Nodes of List after sorting them in Ascending order:\n";
+	c1.ascendingSortingOfList();
+	c1.displayList();
+
 	c1.insertNode(395);	// inserting new Node in List c1
 	cout << "Printing current Node of c1 after adding new Node:" << endl << c1.get() << endl;
 	c1.insertNode(235);	// inserting new Node in List c1
 	cout << "Printing current Node of c1 after adding new Node:" << endl << c1.get() << endl;
 	cout << "Displaying List c1:\n";	// Displaying List c1
 	c1.displayList();
+	// descending sorting
+	cout << "Displaying Nodes of List after sorting them in Descending order:\n";
+	c1.descendingSortingOfList();
+	c1.displayList();
+	// Reversing Nodes
+	cout << "Displaying Nodes of List after reversing them:\n";
+	c1.revertingList();
+	c1.displayList();
+
 	// Displaying size of List c1
 	cout << "Printing size of the List: " << endl << c1.getSize() << endl;
 	// for searching specific value from List c1
@@ -77,6 +91,12 @@ int main()
 	}
 	// Displaying sum of Nodes of List c1
 	cout << "Sum of Nodes: " << endl << c1.sumOfNodes();
+	return 0;
+	// Sorting Nodes
+	cout << "Displaying Nodes of List after sorting them in Descending order:\n";
+	c1.descendingSortingOfList();
+	c1.displayList();
+
 	return 0;
 }
 

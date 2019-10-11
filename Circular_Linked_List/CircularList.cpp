@@ -8,16 +8,16 @@ CircularList::CircularList(int num)
 {
 	Node* newNode = new Node();
 	newNode->setValue(num);
-	currentNode = newNode;
+	headNode = currentNode = newNode;
 	size++;
 }
 
 // perametric Constructor
 CircularList::CircularList(Node* newNode)
 {
-	currentNode = newNode;
-	currentNode->setNextNode(0);
-	currentNode->setPrevNode(0);
+	headNode = currentNode = newNode;
+	currentNode->setNextNode(currentNode);
+	currentNode->setPrevNode(currentNode);
 	size++;
 }
 
@@ -26,38 +26,22 @@ CircularList::CircularList(Node* newNode)
 void CircularList::insertNode(int num)
 {
 	Node* newNode = new Node();
-	newNode->setValue(num);
 	if (size == 0)	// when List is previously empty
 	{
-		newNode->setNextNode(0);
-		newNode->setPrevNode(0);
-		currentNode = newNode;
-		size++;
-		exit;
+		newNode->setNextNode(newNode);
+		newNode->setPrevNode(newNode);
+		headNode = newNode;
 	}
-	else if (size == 1)	// in case List has only One Node
-	{
-		newNode->setPrevNode(currentNode);
-		newNode->setNextNode(currentNode);
-		currentNode->setPrevNode(newNode);
-		currentNode->setNextNode(newNode);
-		currentNode = newNode;
-		size++;
-		exit;
-	}
-	// this else will work when List has more than one Nodes
 	else
 	{
 		newNode->setPrevNode(currentNode);
 		newNode->setNextNode(currentNode->getNextNode());
 		currentNode->getNextNode()->setPrevNode(newNode);
 		currentNode->setNextNode(newNode);
-		currentNode = newNode;
-		size++;
-		exit;
 	}
-	
-	
+	currentNode = newNode;
+	currentNode->setValue(num);
+	size++;
 }
 
 // function for inserting new Node before specific Node
@@ -69,8 +53,19 @@ void CircularList::insertBefore(int dNum, int num)
 		if (dNum == currentNode->getValue())	// when Node is found
 		{
 			f = 1;
-			CircularList::moveBackward();
-			CircularList::insertNode(num);	// calling insertNode() function
+			
+			if (currentNode == headNode)
+			{
+				CircularList::moveBackward();
+				CircularList::insertNode(num);	// calling insertNode() function
+				headNode = headNode->getPrevNode();
+			}
+			else
+			{
+				CircularList::moveBackward();
+				CircularList::insertNode(num);	// calling insertNode() function
+			}
+			
 			break;
 		}
 		CircularList::moveForward();
@@ -89,8 +84,8 @@ void CircularList::insertAfter(int dNum, int num)
 	{
 		if (dNum == currentNode->getValue())	// when Node is found
 		{
-			CircularList::insertNode(num);	// calling insertNode() function
 			f = 1;
+			CircularList::insertNode(num);	// calling insertNode() function
 			break;
 		}
 		CircularList::moveForward();
@@ -116,19 +111,15 @@ void CircularList::deleteNode(int num)
 			{
 				CircularList::CircularList();
 			}
-			else if (size == 2)	// when List has two Nodes
-			{
-				CircularList::moveForward();
-				currentNode->setNextNode(0);
-				currentNode->setPrevNode(0);
-				size--;
-			}
-			// this else will work when List has more than 2 Nodes
 			else
 			{
 				currentNode->getNextNode()->setPrevNode(currentNode->getPrevNode());
 				currentNode->getPrevNode()->setNextNode(currentNode->getNextNode());
 				CircularList::moveForward();
+				if (newNode == headNode)	// when deleting first Node
+				{
+					headNode = currentNode;
+				}
 				size--;
 			}
 			delete newNode;	// deleting newNode
@@ -141,6 +132,17 @@ void CircularList::deleteNode(int num)
 	else
 		cout << "Node with value " << num << " is successfully deleted from the List.\n";
 
+}
+
+// fuction for moving current Node to head Node
+void CircularList::start()
+{
+	currentNode = headNode;
+}
+// function for moving current Node to last Node
+void CircularList::end()
+{
+	currentNode = headNode->getPrevNode();
 }
 
 // function for moving current Node to next Node
@@ -211,7 +213,7 @@ void CircularList::displayList()
 	else
 	{
 		Node* ptr = new Node(0);
-		ptr = currentNode;
+		ptr = headNode;
 		cout << "Values of Nodes of List are:\n";
 		for (int i = 0; i < size; i++)
 		{
@@ -219,4 +221,69 @@ void CircularList::displayList()
 			ptr = ptr->getNextNode();
 		}
 	}
+}
+
+void CircularList::ascendingSortingOfList()
+{
+	int temp;
+	CircularList::start();
+	Node* ptr = new Node;
+	for (int i = 0; i < size; i++)
+	{
+		ptr = currentNode->getNextNode();
+		for (int j = i + 1; j < size; j++)
+		{
+			if (currentNode->getValue() > ptr->getValue())
+			{
+				temp = currentNode->getValue();
+				currentNode->setValue(ptr->getValue());
+				ptr->setValue(temp);
+			}
+			ptr = ptr->getNextNode();
+		}
+		CircularList::moveForward();
+	}
+}
+
+// function for sorting Nodes of List in ascending order
+void CircularList::descendingSortingOfList()
+{
+	int temp;
+	CircularList::start();
+	Node* ptr = new Node;
+	for (int i = 0; i < size; i++)
+	{
+		ptr = currentNode->getNextNode();
+		for (int j = i + 1; j < size; j++)
+		{
+			if (currentNode->getValue() < ptr->getValue())
+			{
+				temp = currentNode->getValue();
+				currentNode->setValue(ptr->getValue());
+				ptr->setValue(temp);
+			}
+			ptr = ptr->getNextNode();
+		}
+		CircularList::moveForward();
+	}
+}
+
+// function for reversing Nodes of List
+void CircularList::revertingList()
+{
+	Node* ptr;
+	ptr = headNode;
+	int dSize = size / 2;
+	int temp;
+	CircularList::end();
+
+	for (int i = 0; i < dSize; i++)
+	{
+		temp = currentNode->getValue();
+		currentNode->setValue(ptr->getValue());
+		ptr->setValue(temp);
+		CircularList::moveBackward();
+		ptr = ptr->getNextNode();
+	}
+	CircularList::start();
 }

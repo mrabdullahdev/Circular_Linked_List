@@ -3,11 +3,12 @@
 class CircularList
 {
 private:// private members
+	Node* headNode;
 	Node* currentNode;
 	int size;
 public:// public members
 	// constructors
-	CircularList():currentNode(0),size(0){}
+	CircularList():headNode(0),currentNode(0),size(0){}
 	CircularList(int num);
 	CircularList(Node* newNode);
 	// functions for adding Nodes
@@ -17,6 +18,8 @@ public:// public members
 	// function for deleting Node
 	void deleteNode(int num);
 	// functions for moving current Node
+	void start();
+	void end();
 	void moveForward();
 	void moveBackward();
 	// function for searching value
@@ -28,5 +31,11 @@ public:// public members
 	int sumOfNodes();
 	// function for displaying Nodes
 	void displayList();
+
+	void ascendingSortingOfList();
+	void descendingSortingOfList();
+	void revertingList();
+
+
 };
 
