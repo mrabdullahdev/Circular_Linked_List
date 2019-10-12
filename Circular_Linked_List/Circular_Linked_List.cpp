@@ -52,6 +52,19 @@ int main()
 	cout << "Printing current Node of c1 after adding new Node before 56:" << endl << c1.get() << endl;
 	c1.insertAfter(89, 146);	// inserting new Node in List c1 before 89
 	cout << "Printing current Node of c1 after adding new Node after 89:" << endl << c1.get() << endl;
+
+	//  inserting Node at Begining
+	c1.insertAtBegin(940);
+	cout << "Displaying List after inserting Node at Begining from List:\n";
+	c1.displayList();	// Displaying Nodes of List
+	//  inserting Node at End
+	c1.insertAtEnd(51);
+	cout << "Displaying List after inserting Node at End from List:\n";
+	c1.displayList();	// Displaying Nodes of List
+	//  inserting Node at specific index
+	c1.insertTo(435,5);
+	cout << "Displaying List after inserting Node in 5th position from List:\n";
+	c1.displayList();	// Displaying Nodes of List
 	// Displaying Size of List c1
 	cout << "Printing size of the List: " << endl << c1.getSize() << endl;
 	c1.deleteNode(56);		// deleting specific Node from List c1
