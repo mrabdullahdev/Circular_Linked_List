@@ -43,6 +43,43 @@ void CircularList::insertNode(int num)
 	currentNode->setValue(num);
 	size++;
 }
+// function to insert Node in the Begining
+void CircularList::insertAtBegin(int num)
+{
+	Node* newNode = new Node();
+	CircularList::end();
+	newNode->setNextNode(headNode);
+	newNode->setPrevNode(currentNode);
+	newNode->setValue(num);
+	if (size != 0)
+	{
+		headNode->getPrevNode()->setNextNode(newNode);
+		headNode->setPrevNode(newNode);
+	}
+	headNode = currentNode = newNode;
+	size++;
+}
+// function to insert Node in the Begining
+void CircularList::insertAtEnd(int num)
+{
+	CircularList::end();
+	CircularList::insertNode(num);
+}
+// function to insert Node at specific index
+void CircularList::insertTo(int num, int position)
+{
+	if (position > (size + 1))
+		cout << "Index is out of bound.\n";
+	else
+	{
+		CircularList::start();
+		for (int i = 2; i < position; i++)
+		{
+			CircularList::moveForward();
+		}
+		CircularList::insertNode(num);
+	}
+}
 
 // function for inserting new Node before specific Node
 void CircularList::insertBefore(int dNum, int num)
@@ -52,8 +89,7 @@ void CircularList::insertBefore(int dNum, int num)
 	{
 		if (dNum == currentNode->getValue())	// when Node is found
 		{
-			f = 1;
-			
+			f = 1;			
 			if (currentNode == headNode)
 			{
 				CircularList::moveBackward();
@@ -222,7 +258,7 @@ void CircularList::displayList()
 		}
 	}
 }
-
+// function for sorting List in ascending order
 void CircularList::ascendingSortingOfList()
 {
 	int temp;
@@ -245,7 +281,7 @@ void CircularList::ascendingSortingOfList()
 	}
 }
 
-// function for sorting Nodes of List in ascending order
+// function for sorting Nodes of List in descending order
 void CircularList::descendingSortingOfList()
 {
 	int temp;

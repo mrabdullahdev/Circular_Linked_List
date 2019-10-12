@@ -13,6 +13,9 @@ public:// public members
 	CircularList(Node* newNode);
 	// functions for adding Nodes
 	void insertNode(int num);
+	void insertAtBegin(int num);
+	void insertAtEnd(int num);
+	void insertTo(int num, int position);
 	void insertBefore(int dNum, int num);
 	void insertAfter(int dNum, int num);
 	// function for deleting Node
