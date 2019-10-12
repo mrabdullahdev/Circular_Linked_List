@@ -323,3 +323,15 @@ void CircularList::revertingList()
 	}
 	CircularList::start();
 }
+
+// Destructor
+CircularList::~CircularList()
+{
+	for (int i = 0; i < size; i++)
+	{
+		Node* newNode = new Node();
+		newNode = currentNode;
+		delete newNode;
+		CircularList::moveForward();
+	}
+}

@@ -39,6 +39,8 @@ public:// public members
 	void descendingSortingOfList();
 	void revertingList();
 
+	// Destructor
+	~CircularList();
 
 };
 
